@@ -1,0 +1,35 @@
+﻿@using DataAccessLayer.Enums;
+@model EditFormViewModel
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Form Field Görüntüleme Sayfası - @Model.Name</h1>
+<br />
+
+<div class="form-group">
+    @foreach (var item in Model.FormFields)
+    {
+        <label>@item.ColumnName</label>
+        if (item.DataType == DataTypeEnum.String.ToString())
+        {
+            <input type="text" />
+        }
+        else if (item.DataType == DataTypeEnum.Int.ToString())
+        {
+            <input type="number" />
+        }
+        else if (item.DataType == DataTypeEnum.DateTime.ToString())
+        {
+            <input type="date" />
+        }
+        else if (item.DataType == DataTypeEnum.Boolen.ToString())
+        {
+            <input type="checkbox" />
+        }
+
+    }
+
+</div>

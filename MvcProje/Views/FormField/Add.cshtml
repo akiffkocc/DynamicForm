@@ -1,0 +1,29 @@
+﻿@model AddFormFieldViewModel
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Yeni Form Ekleme Sayfası</h1>
+<br />
+
+@using (Html.BeginForm("Add", "FormField", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x=>x.FormId)
+        @Html.Label("Kolon Adı")
+        @Html.TextBoxFor(x=>x.ColumnName)
+        @Html.ValidationMessageFor(x=>x.ColumnName)
+        <br /> <br />
+        @Html.Label("Veri Tipi")
+        @Html.DropDownListFor(x=>x.DataType, (List<SelectListItem>)ViewBag.DataTypeSelectListItem,new {@class="form-control"})
+        @Html.ValidationMessageFor(x=>x.DataType)
+
+        <br /><br />
+        @Html.Label("Zorunlu mu?")
+        @Html.CheckBoxFor(x=>x.Required)
+        @Html.ValidationMessageFor(x=>x.Required)
+        <br /><br />
+        <button>Kaydet</button>
+    </div>
+}

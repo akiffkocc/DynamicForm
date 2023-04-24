@@ -1,0 +1,23 @@
+﻿@model AddFormViewModel
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Yeni Form Ekleme Sayfası</h1>
+<br />
+
+@using (Html.BeginForm("Add", "Form", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Form Adı")
+        @Html.TextBoxFor(x=>x.Name)
+        @Html.ValidationMessageFor(x=>x.Name)
+        <br /><br />
+        @Html.Label("Form Açıklaması")
+        @Html.TextBoxFor(x=>x.Description)
+        @Html.ValidationMessageFor(x=>x.Description)
+        <br /><br />
+        <button>Kaydet</button>
+    </div>
+}
