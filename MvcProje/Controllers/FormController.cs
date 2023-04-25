@@ -1,5 +1,4 @@
 ﻿using BusinessLayer.Concrete;
-using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +12,10 @@ namespace MvcProje.Controllers
         FormFieldService _formFieldService = new FormFieldService(new EfFormFieldDal());
         public IActionResult Index()
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var formList = _formService.GetAllList();
 
             var formListViewModels = new List<FormListViewModel>();
@@ -36,12 +39,20 @@ namespace MvcProje.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Add(AddFormViewModel model)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var entity = new Form()
             {
                 CreatedAt = DateTime.Now,
@@ -57,6 +68,10 @@ namespace MvcProje.Controllers
 
         public ActionResult Delete(int id)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var form = _formService.GetById(id);
             _formService.Delete(form);
             return RedirectToAction("Index");
@@ -65,6 +80,10 @@ namespace MvcProje.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var form = _formService.GetById(id);
 
             var editFormViewModel = new EditFormViewModel()
@@ -97,6 +116,10 @@ namespace MvcProje.Controllers
         [HttpPost]
         public ActionResult Edit(EditFormViewModel model)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var form = _formService.GetById(model.Id);
             form.Name = model.Name;
             form.Description = model.Description;
@@ -107,6 +130,10 @@ namespace MvcProje.Controllers
 
         public ActionResult View(int id)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var form = _formService.GetById(id);
 
             var editFormViewModel = new EditFormViewModel()

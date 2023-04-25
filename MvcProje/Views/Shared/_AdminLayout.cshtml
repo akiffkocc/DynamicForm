@@ -48,7 +48,16 @@ to get the desired effect
                         <img src="~/AdminLTE-3.0.4/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">
+                            @{
+                                var userName = Context.Session.GetString("username");
+                                if (userName != null)
+                                {
+                                    <span>@userName</span>
+                                }
+
+                            }
+                        </a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
@@ -65,9 +74,9 @@ to get the desired effect
                                 </p>
                             </a>
                         </li>
-                      
+
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="/User/Logout/" class="nav-link">
                                 <i class="nav-icon fas fa-apple-alt"></i>
                                 <p>
                                     Çıkış yap
@@ -96,7 +105,7 @@ to get the desired effect
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
-   <!-- Bootstrap --> 
+    <!-- Bootstrap -->
     <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="~/AdminLTE-3.0.4/dist/js/adminlte.js"></script>

@@ -5,31 +5,48 @@
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Form Field Görüntüleme Sayfası - @Model.Name</h1>
 <br />
-
-<div class="form-group">
-    @foreach (var item in Model.FormFields)
-    {
-        <label>@item.ColumnName</label>
-        if (item.DataType == DataTypeEnum.String.ToString())
-        {
-            <input type="text" />
-        }
-        else if (item.DataType == DataTypeEnum.Int.ToString())
-        {
-            <input type="number" />
-        }
-        else if (item.DataType == DataTypeEnum.DateTime.ToString())
-        {
-            <input type="date" />
-        }
-        else if (item.DataType == DataTypeEnum.Boolen.ToString())
-        {
-            <input type="checkbox" />
-        }
-
-    }
-
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Form Field Görüntüleme Sayfası - @Model.Name</h3>
+            </div>
+            <div class="card-body">
+                @foreach (var item in Model.FormFields)
+                {
+                    if (item.DataType == DataTypeEnum.String.ToString())
+                    {
+                        <div class="form-group">
+                            <label>@item.ColumnName</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="@item.ColumnName">
+                        </div>
+                    }
+                    else if (item.DataType == DataTypeEnum.Int.ToString())
+                    {
+                        <div class="form-group">
+                            <label>@item.ColumnName</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" placeholder="@item.ColumnName">
+                        </div>
+                    }
+                    else if (item.DataType == DataTypeEnum.DateTime.ToString())
+                    {
+                        <div class="form-group">
+                            <label>@item.ColumnName</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" placeholder="@item.ColumnName">
+                        </div>
+                    }
+                    else if (item.DataType == DataTypeEnum.Boolen.ToString())
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input">
+                            <label class="form-check-label">@item.ColumnName</label>
+                        </div>
+                    }
+                }
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+    <!-- /.col -->
 </div>

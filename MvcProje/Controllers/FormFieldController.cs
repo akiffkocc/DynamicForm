@@ -1,11 +1,9 @@
-﻿using BusinessLayer.Abstarct;
-using BusinessLayer.Concrete;
+﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Enums;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.SqlServer.Server;
 using MvcProje.Models;
 
 namespace MvcProje.Controllers
@@ -18,14 +16,18 @@ namespace MvcProje.Controllers
         [HttpGet]
         public ActionResult Add(int formId)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var addFormFieldViewModel = new AddFormFieldViewModel()
             {
                 FormId = formId
             };
 
-            var dataTypeSelectListItem = new List<SelectListItem>() 
-            { 
-                new SelectListItem 
+            var dataTypeSelectListItem = new List<SelectListItem>()
+            {
+                new SelectListItem
                 {
                      Text = DataTypeEnum.String.ToString(),
                      Value = DataTypeEnum.String.ToString()
@@ -46,7 +48,7 @@ namespace MvcProje.Controllers
                      Value = DataTypeEnum.Boolen.ToString()
                 }
             };
-           
+
             ViewBag.DataTypeSelectListItem = dataTypeSelectListItem;
 
             return View(addFormFieldViewModel);
@@ -55,6 +57,10 @@ namespace MvcProje.Controllers
         [HttpPost]
         public ActionResult Add(AddFormFieldViewModel model)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var entity = new FormField()
             {
                 ColumnName = model.ColumnName,
@@ -70,6 +76,10 @@ namespace MvcProje.Controllers
 
         public ActionResult Delete(int id, int formId)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var form = _formFieldService.GetById(id);
             _formFieldService.Delete(form);
             return RedirectToAction("Edit", "Form", new { id = formId, isActiveFieldTab = true });
@@ -79,6 +89,10 @@ namespace MvcProje.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var formField = _formFieldService.GetById(id);
 
             var editFormFieldViewModel = new EditFormFieldViewModel()
@@ -121,6 +135,10 @@ namespace MvcProje.Controllers
         [HttpPost]
         public ActionResult Edit(EditFormFieldViewModel model)
         {
+            var sessionUser = HttpContext.Session.GetString("username");
+            if (sessionUser == null)
+                return RedirectToAction("Login", "User");
+
             var formField = _formFieldService.GetById(model.Id);
             formField.ColumnName = model.ColumnName;
             formField.DataType = model.DataType;
