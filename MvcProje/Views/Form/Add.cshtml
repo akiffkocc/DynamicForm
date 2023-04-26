@@ -10,15 +10,19 @@
 @using (Html.BeginForm("Add", "Form", FormMethod.Post))
 {
     <div class="form-group">
-        @Html.Label("Form Adı")
-        @Html.TextBoxFor(x=>x.Name)
-        @Html.ValidationMessageFor(x=>x.Name)
-        <br /><br />
-        @Html.Label("Form Açıklaması")
-        @Html.TextBoxFor(x=>x.Description)
-        @Html.ValidationMessageFor(x=>x.Description)
-        <br /><br />
-        <button>Kaydet</button>
+        <div class="col-12 col-sm-12">
+            ,<div class="card-body">
+                @Html.Label("Form Adı")
+                @Html.TextBoxFor(x=>x.Name)
+                @Html.ValidationMessageFor(x=>x.Name)
+                <br /><br />
+                @Html.Label("Form Açıklaması")
+                @Html.TextBoxFor(x=>x.Description)
+                @Html.ValidationMessageFor(x=>x.Description)
+                <br /><br />
+                <button class="btn btn-info">Kaydet</button>
+            </div>
+        </div>
     </div>
 }
 
